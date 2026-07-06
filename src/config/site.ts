@@ -19,13 +19,13 @@ export const siteConfig = {
   description:
     "Full Stack Software Engineer and Development Lead in Singapore specialising in enterprise healthcare systems, Java, Spring Boot, cloud-native architecture, performance optimisation, release management and AI-assisted engineering.",
   /** Production URL — update after deploying and configuring the custom domain. */
-  url: "https://rohitbhojwani.vercel.app",
+  url: "https://rohit-bhojwani-portfolio.vercel.app",
   location: "Singapore",
   email: "rohitbhoj102@gmail.com",
   resumeFile: "/resume/Rohit_Bhojwani_Resume.pdf",
   links: {
     github: "https://github.com/rohitbhoj102",
-    linkedin: "https://www.linkedin.com/in/rohit-bhojwani",
+    linkedin: "https://www.linkedin.com/in/rohitbhojwani",
   },
   /** Username used by the GitHub statistics embeds. */
   githubUsername: "rohitbhoj102",

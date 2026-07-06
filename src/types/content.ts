@@ -1,4 +1,7 @@
-import type { IconType } from "react-icons";
+import type * as React from "react";
+
+/** Any icon component accepting a className — react-icons and lucide both fit. */
+export type SkillIcon = React.ComponentType<{ className?: string }>;
 
 /** A single role on the experience timeline. */
 export interface Experience {
@@ -39,7 +42,7 @@ export interface Skill {
   name: string;
   /** Proficiency from 0–100 used to render the bar. */
   level: number;
-  icon?: IconType;
+  icon?: SkillIcon;
 }
 
 /** A grouped skill card (Programming, Backend, Cloud, ...). */
