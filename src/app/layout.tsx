@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import * as React from "react";
 
+import { BackToTop } from "@/components/interactive/back-to-top";
+import { CommandPalette } from "@/components/interactive/command-palette";
+import { CursorGlow } from "@/components/interactive/cursor-glow";
+import { ScrollProgress } from "@/components/interactive/scroll-progress";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { siteConfig } from "@/config/site";
 import { fontVariables } from "@/lib/fonts";
@@ -53,7 +57,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(fontVariables, "min-h-dvh")}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ScrollProgress />
+          <CursorGlow />
+          {children}
+          <BackToTop />
+          <CommandPalette />
+        </ThemeProvider>
       </body>
     </html>
   );

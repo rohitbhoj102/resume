@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { AnimatedCounter } from "@/components/motion/animated-counter";
 import { FadeIn } from "@/components/motion/fade-in";
+import { RotatingText } from "@/components/motion/rotating-text";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,15 @@ export function Hero() {
             <h1 className="text-gradient text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
               {siteConfig.name}
             </h1>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <p className="font-mono text-sm text-accent sm:text-base">
+              <span aria-hidden className="text-muted-foreground select-none">
+                ${" "}
+              </span>
+              <RotatingText items={siteConfig.roles} />
+            </p>
           </FadeIn>
 
           <FadeIn delay={0.25}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Menu, X } from "lucide-react";
+import { Download, Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { navSections, siteConfig } from "@/config/site";
+import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 
 /** Primary anchors shown on desktop; the rest live in the mobile menu. */
@@ -15,8 +16,11 @@ const desktopLinks = navSections.filter((section) =>
   ["about", "experience", "skills", "projects", "contact"].includes(section.id)
 );
 
+const allSectionIds = ["hero", ...navSections.map((section) => section.id)];
+
 export function Navbar() {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const activeSection = useActiveSection(allSectionIds);
 
   // Prevent background scroll while the mobile menu is open
   React.useEffect(() => {
@@ -25,6 +29,10 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  function openCommandPalette() {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-md">
@@ -44,14 +52,40 @@ export function Navbar() {
             <Link
               key={section.id}
               href={`#${section.id}`}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              aria-current={activeSection === section.id ? "true" : undefined}
+              className={cn(
+                "relative rounded-md px-3 py-2 text-sm transition-colors",
+                activeSection === section.id
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
             >
               {section.label}
+              <span
+                aria-hidden
+                className={cn(
+                  "absolute inset-x-3 -bottom-px h-px bg-gradient-to-r from-primary to-accent transition-opacity duration-300",
+                  activeSection === section.id ? "opacity-100" : "opacity-0"
+                )}
+              />
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="hidden items-center gap-2 text-muted-foreground lg:inline-flex"
+            onClick={openCommandPalette}
+            aria-label="Open command palette"
+          >
+            <Search className="size-3.5" />
+            <span className="text-xs">Search</span>
+            <kbd className="rounded border border-border bg-surface-elevated px-1.5 py-0.5 font-mono text-[10px]">
+              ⌘K
+            </kbd>
+          </Button>
           <Button size="sm" className="hidden sm:inline-flex" asChild>
             <a href={siteConfig.resumeFile} download>
               <Download /> Resume
@@ -86,7 +120,13 @@ export function Navbar() {
               key={section.id}
               href={`#${section.id}`}
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-current={activeSection === section.id ? "true" : undefined}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors",
+                activeSection === section.id
+                  ? "bg-primary/10 text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
             >
               <span className="font-mono text-xs text-accent">
                 {String(index + 1).padStart(2, "0")}
