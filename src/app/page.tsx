@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { JsonLd } from "@/components/seo/json-ld";
 import { About } from "@/components/sections/about";
 import { AiExperience } from "@/components/sections/ai-experience";
 import { Certifications } from "@/components/sections/certifications";
@@ -16,8 +17,9 @@ import { Skills } from "@/components/sections/skills";
 export default function HomePage() {
   return (
     <>
+      <JsonLd />
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Experience />

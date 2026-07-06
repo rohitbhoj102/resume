@@ -3,9 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { AnimatedCounter } from "@/components/motion/animated-counter";
-import { FadeIn } from "@/components/motion/fade-in";
 import { RotatingText } from "@/components/motion/rotating-text";
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
@@ -17,6 +15,11 @@ const heroStats = [
   { value: 100, suffix: "%", label: "Sprint completion as Lead" },
 ];
 
+/**
+ * Above-the-fold entrances are pure CSS (anim-fade-up) so the headline —
+ * the LCP element — paints without waiting for hydration. The headline and
+ * tagline render statically; supporting elements cascade in around them.
+ */
 export function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
@@ -33,45 +36,44 @@ export function Hero() {
 
       <Container className="relative">
         <div className="flex max-w-3xl flex-col gap-6">
-          <FadeIn delay={0.05}>
+          <div className="anim-fade-up [animation-delay:0.05s]">
             <Badge variant="accent" className="font-mono">
               <MapPin className="size-3" aria-hidden />
               {siteConfig.location} · Development Lead @ NCS Group
             </Badge>
-          </FadeIn>
+          </div>
 
-          <FadeIn delay={0.15}>
-            <h1 className="text-gradient text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
-              {siteConfig.name}
-            </h1>
-          </FadeIn>
+          {/* LCP element — no entrance animation, paints immediately */}
+          <h1 className="text-gradient text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+            {siteConfig.name}
+          </h1>
 
-          <FadeIn delay={0.2}>
-            <p className="font-mono text-sm text-accent sm:text-base">
-              <span aria-hidden className="text-muted-foreground select-none">
-                ${" "}
-              </span>
-              <RotatingText items={siteConfig.roles} />
-            </p>
-          </FadeIn>
+          <p className="anim-fade-up font-mono text-sm text-accent [animation-delay:0.15s] sm:text-base">
+            <span aria-hidden className="text-muted-foreground select-none">
+              ${" "}
+            </span>
+            <RotatingText items={siteConfig.roles} />
+          </p>
 
-          <FadeIn delay={0.25}>
-            <p className="max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
-              Building scalable software.{" "}
-              <span className="text-foreground">Optimising enterprise systems.</span> Leading
-              high-performing engineering teams.
-            </p>
-          </FadeIn>
+          <p className="max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
+            Building scalable software.{" "}
+            <span className="text-foreground">Optimising enterprise systems.</span> Leading
+            high-performing engineering teams.
+          </p>
 
-          <Stagger delay={0.35} interval={0.06} className="flex flex-wrap gap-2">
-            {siteConfig.roles.map((role) => (
-              <StaggerItem key={role}>
+          <div className="flex flex-wrap gap-2">
+            {siteConfig.roles.map((role, index) => (
+              <div
+                key={role}
+                className="anim-fade-up"
+                style={{ animationDelay: `${0.25 + index * 0.06}s` }}
+              >
                 <Badge variant="secondary">{role}</Badge>
-              </StaggerItem>
+              </div>
             ))}
-          </Stagger>
+          </div>
 
-          <FadeIn delay={0.55} className="mt-2 flex flex-wrap gap-3">
+          <div className="anim-fade-up mt-2 flex flex-wrap gap-3 [animation-delay:0.55s]">
             <Button size="lg" asChild>
               <a href={siteConfig.resumeFile} download>
                 <Download /> Download Resume
@@ -82,23 +84,23 @@ export function Hero() {
                 View Projects <ArrowRight />
               </Link>
             </Button>
-          </FadeIn>
+          </div>
         </div>
 
-        <Stagger
-          delay={0.7}
-          interval={0.08}
-          className="mt-16 grid grid-cols-2 gap-6 border-t border-border/60 pt-8 sm:mt-20 lg:grid-cols-4"
-        >
-          {heroStats.map((stat) => (
-            <StaggerItem key={stat.label} className="space-y-1">
+        <div className="mt-16 grid grid-cols-2 gap-6 border-t border-border/60 pt-8 sm:mt-20 lg:grid-cols-4">
+          {heroStats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className="anim-fade-up space-y-1"
+              style={{ animationDelay: `${0.65 + index * 0.08}s` }}
+            >
               <p className="text-gradient-primary font-mono text-3xl font-semibold sm:text-4xl">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
               <p className="text-xs text-muted-foreground sm:text-sm">{stat.label}</p>
-            </StaggerItem>
+            </div>
           ))}
-        </Stagger>
+        </div>
       </Container>
     </section>
   );

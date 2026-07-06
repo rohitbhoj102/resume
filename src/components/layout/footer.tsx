@@ -56,6 +56,12 @@ export function Footer() {
                 {section.label}
               </Link>
             ))}
+            <Link
+              href="/resume"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Print Resume
+            </Link>
           </nav>
         </div>
 

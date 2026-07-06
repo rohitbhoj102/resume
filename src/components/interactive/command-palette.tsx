@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Copy,
   Download,
+  FileText,
   Github,
   Linkedin,
   Mail,
@@ -30,9 +31,9 @@ interface Command {
  * Lightweight, dependency-free command palette.
  * Open with ⌘K / Ctrl+K; navigate with ↑↓, run with Enter, close with Esc.
  */
-export function CommandPalette() {
+export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(initialOpen);
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -65,6 +66,16 @@ export function CommandPalette() {
           link.href = siteConfig.resumeFile;
           link.download = "";
           link.click();
+        },
+      },
+      {
+        id: "print-resume",
+        label: "View Print-Friendly Resume",
+        hint: "Page",
+        icon: FileText,
+        keywords: "resume print page cv document",
+        run: () => {
+          window.location.href = "/resume";
         },
       },
       {
