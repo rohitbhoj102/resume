@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Copy,
   Download,
+  FileText,
   Github,
   Linkedin,
   Mail,
@@ -65,6 +66,16 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
           link.href = siteConfig.resumeFile;
           link.download = "";
           link.click();
+        },
+      },
+      {
+        id: "print-resume",
+        label: "View Print-Friendly Resume",
+        hint: "Page",
+        icon: FileText,
+        keywords: "resume print page cv document",
+        run: () => {
+          window.location.href = "/resume";
         },
       },
       {
