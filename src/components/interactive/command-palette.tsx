@@ -30,9 +30,9 @@ interface Command {
  * Lightweight, dependency-free command palette.
  * Open with ⌘K / Ctrl+K; navigate with ↑↓, run with Enter, close with Esc.
  */
-export function CommandPalette() {
+export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(initialOpen);
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement>(null);

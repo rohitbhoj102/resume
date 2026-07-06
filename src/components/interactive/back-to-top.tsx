@@ -25,7 +25,7 @@ export function BackToTop() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 12, scale: 0.9 }}
           transition={{ duration: 0.2 }}
-          className="fixed right-5 bottom-5 z-50 sm:right-8 sm:bottom-8"
+          className="fixed right-5 bottom-5 z-50 sm:right-8 sm:bottom-8 print:hidden"
         >
           <Button
             variant="secondary"

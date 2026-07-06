@@ -113,7 +113,7 @@ tokens, keyframes, custom utilities and the dark-mode variant are all declared i
 ## Build Phases
 
 - [x] **Phase 1** — Architecture & design system (theme, tokens, typography, base components, motion primitives)
-- [ ] **Phase 2** — Core pages & reusable section components
-- [ ] **Phase 3** — Animations & interactions
-- [ ] **Phase 4** — Performance optimisation & SEO
+- [x] **Phase 2** — Core pages & reusable section components
+- [x] **Phase 3** — Animations & interactions
+- [x] **Phase 4** — Performance optimisation & SEO (robots, sitemap, JSON-LD, OG image, PWA + offline, print resume; Lighthouse 100 Accessibility / 100 SEO / 100 Best Practices)
 - [ ] **Phase 5** — Deployment, testing & polish
